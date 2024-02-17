@@ -25,12 +25,10 @@ def signup(request):
     else:
         # If it's a GET request, create a new instance of the form
         form = SignUpForm()      
-    return render(request, 'Core/signup.html',{'form':form})
-def stem(request):
-    return render(request,'Core/signup.html')
+    return render(request, 'Core/singup.html',{'form':form})
 
-def loginn(request):
-    return render(request, 'Core/login.html')
+def sinpage(request):
+    return render(request,'core/singu.html')
 
 def shopPage(request):
     products=Product.objects.all()

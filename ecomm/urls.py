@@ -3,16 +3,15 @@ from django.conf import settings
 from django.contrib.auth import views
 from django.conf.urls.static import static
 from django.urls import path
-from core.views import frontpage,shopPage,signup,loginn,stem
+from core.views import frontpage,shopPage,signup,sinpage
 from product.views import products
 from cart.views import add_to_cart,cart,checkOut
 
 urlpatterns = [
     path('',frontpage,name='frontpage'),
     path('signupage/',signup,name='singupPgae'),
-    path('stem/',stem,name='stem'),
+    path('page/',sinpage,name='page'),
     path('logout/',views.LogoutView.as_view(),name='logout'),
-    path('log/',loginn,name='logg'),
     path('login/',views.LoginView.as_view(template_name='Core/login.html'),name='loginPage'),
     path('shop/',shopPage,name='shopPage'),
     path('shop/<slug:slug>/',products, name='product'),

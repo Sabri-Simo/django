@@ -19,7 +19,7 @@
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li><a href="{% url 'shopPage' %}">ShopPage</a></li>
               <li><a>Portfolio</a></li>
-              <li><a>About</a></li>
+              <li><a href="{% url 'singupPgae' %}">About</a></li>
             </ul>
           </div>
         </div>
@@ -34,38 +34,41 @@
           </label>
         </div>
     <div class="navbar-end">
-
-    <form action="{% url 'logout' %}" method="post">
       {% csrf_token %}
-    {% if request.user.is_authenticated %}
-    {% include 'cart/menu_cart.html' %}
-    <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-        </div>
-      </div>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li>
-          <a class="justify-between">
-            Profile
-            <span class="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
+      {% if request.user.is_authenticated %}
+        {% include 'cart/menu_cart.html' %}
         <form action="{% url 'logout' %}" method="post">
           {% csrf_token %}
-          <button type="submit" class="logout-button">Logout</button>
-      </form>
-      </ul>
-    </div>
-
-    {% else %}
-    <a href="{% url 'logg' %}" method="get">
-      <button class="btn btn-outline">Sing_up</button></a>
-    <a ><button class="btn btn-outline btn-primary">Login</button></a>
-    {% endif %}
-  </form>
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              </div>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <a class="justify-between">
+                  Profile
+                  <span class="badge">New</span>
+                </a>
+              </li>
+              <li><a>Settings</a></li>
+              <button type="submit" class="logout-button">Logout</button>
+            </ul>
+          </div>
+        </form>
+      {% else %}
+        <form action="{% url 'loginPage' %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-outline">Sign Up</button>
+        </form>
+        <form action="{% url 'singupPgae' %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-outline btn-primary">Login</button>
+        </form>
+      {% endif %}
+      
+      
 
   </div>
 </div>
