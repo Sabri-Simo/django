@@ -11,6 +11,11 @@ def frontpage(request):
     category=Category.objects.all()
     return render(request, 'Core/fontpage.html',{'products':products,'category':category})
 
+def test(request):
+    products=Product.objects.all()
+    category=Category.objects.all()
+    return render(request, 'Core/test.html',{'products':products,'category':category})
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

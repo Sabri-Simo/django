@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
@@ -88,13 +90,16 @@
   {% block Signup %}
   {% endblock %}
 </header>
-
+<header>
+  {% block test %}
+  {% endblock %}
+</header>
 <header>
   {% block login %}
   
   {% endblock %}
 </header>
-p
+
 
 <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded mt-5">
   <nav class="grid grid-flow-col gap-4">
