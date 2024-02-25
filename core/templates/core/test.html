@@ -8,8 +8,8 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 <div x-data="{ cartOpen: false , isOpen: false }" class="bg-white p-1 ">
-    <header class="top-0  sticky bg-white shadow-lg border-b-2">
-        <div class="container mx-auto px-6 py-3">
+    <header class="top-0  sticky bg-white shadow-lg border-b-1">
+        <div class="container mx-auto px-6 py-2">
             <div class="flex items-center justify-between">
                 <div class="hidden w-full text-gray-600 md:flex md:items-center">
                     <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
                     <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">Home</a>
                     <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">Shop</a>
                     <div class="dropdown dropdown-down">
-                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">Categories</a>
+                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-1" href="#">Categories</a>
                     <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                         {% for category in category  %}
                             <li><a href="{% url 'test' %}?category={{ category.slug }}">{{category.slug}}</a></li>
@@ -145,19 +145,7 @@
             <span class="mt-3 text-sm text-gray-500">200+ Products</span>
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                 {% for products in products %}
-                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                    <a href="{% url 'product' products.slug %}">
-                    <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('{{ products.get_thumbnails }}')">
-                        <button class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        </button>
-                    </div>
-                    <div class="px-5 py-3">
-                        <h3 class="text-gray-700 uppercase">{{products.name}}</h3>
-                        <span class="text-gray-500 mt-2">{{products.price}} </span>
-                    </div>
-                    </a>
-                </div>
+                {% include 'product/prot2.html' %}
                 {% endfor %}
                         </div>
             <div class="flex justify-center">

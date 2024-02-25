@@ -14,7 +14,15 @@ def frontpage(request):
 def test(request):
     products=Product.objects.all()
     category=Category.objects.all()
-    return render(request, 'Core/test.html',{'products':products,'category':category})
+    activeCategory=request.GET.get('category','')
+    if activeCategory:
+        products=products.filter(category__slug=activeCategory)
+    
+    query=request.GET.get('query','')
+    if query:
+        products=products.filter(name__icontains=query)
+
+    return render(request, 'Core/test.html',{'products':products,'category':category,'activeCategory':activeCategory})
 
 def signup(request):
     if request.method == 'POST':
