@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<div x-data="{ cartOpen: false , isOpen: false }" class="bg-white p-1 top-0 sticky">
+  <header class=" bg-white shadow-lg border-b-1">
+      <div class="container mx-auto px-6 py-2">
+          <div class="flex items-center justify-between">
+              <div class="hidden w-full text-gray-600 md:flex md:items-center">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.06298 10.063 6.27212 12.2721 6.27212C14.4813 6.27212 16.2721 8.06298 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16755 11.1676 8.27212 12.2721 8.27212C13.3767 8.27212 14.2721 9.16755 14.2721 10.2721Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.39409 5.48178 3.79417C8.90918 0.194243 14.6059 0.054383 18.2059 3.48178C21.8058 6.90918 21.9457 12.6059 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.97318 6.93028 5.17324C9.59603 2.3733 14.0268 2.26452 16.8268 4.93028C19.6267 7.59603 19.7355 12.0268 17.0698 14.8268Z" fill="currentColor" />
+                  </svg>
+              </div>
+              <div class="w-full text-gray-700 md:text-center text-2xl font-semibold">
+                  Brand
+              </div>
+              <div class="flex items-center justify-end w-full space-x-4">
+                  <div class="flex">
+                      {% csrf_token %}
+                      {% if request.user.is_authenticated %}
+                          {% include 'cart/menu_cart.html' %}
+                          <form action="{% url 'logout' %}" method="post">
+                              {% csrf_token %}
+                              <div class="dropdown dropdown-end flex items-center">
+                                  <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                                      <div class="w-10 rounded-full">
+                                          <img alt="Profile Picture" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                      </div>
+                                  </div>
+                                  <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                      <li>
+                                          <a class="justify-between">
+                                              Profile
+                                              <span class="badge">New</span>
+                                          </a>
+                                      </li>
+                                      <li><a>Settings</a></li>
+                                      <button type="submit" class="logout-button">Logout</button>
+                                  </ul>
+                              </div>
+                          </form>
+                      {% else %}
+                          <form action="{% url 'loginPage' %}" method="post">
+                              {% csrf_token %}
+                              <button class="btn btn-outline">Sign Up</button>
+                          </form>
+                          <form action="{% url 'singupPgae' %}" method="post">
+                              {% csrf_token %}
+                              <button class="btn btn-outline btn-primary">Login</button>
+                          </form>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          <nav :class="isOpen ? '' : 'hidden'" class="sm:flex sm:justify-center sm:items-center mt-4  top-0">
+            <div class="flex flex-col sm:flex-row">
+                <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="{% url 'frontpage' %}">Home</a>
+                <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="{% url 'test' %}">Shop</a>
+                <div class="dropdown dropdown-down">
+                <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-1" href="#">Categories</a>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    {% for category in category  %}
+                        <li><a href="{% url 'test' %}?category={{ category.slug }}">{{category.slug}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">Contact</a>
+                <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">About</a>
+            </div>
+        </nav>
+          <div class="relative mt-6 max-w-lg mx-auto">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                  <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+                      <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+              </span>
+              <form method="get" action=".">
+                  <input type="text" name="query" placeholder="Type here" class="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline" />
+              </form>
+          </div>
+      </div>
+  </header>
+</div>
+
+
+<header class="">
+  {% block fontpage %}
+
+  {% endblock %}
+</header>
+<header class="grid grid-rows-3 grid-flow-col gap-3 mt-5  sm:grid-rows-1">
+  {% block hero %}
+
+  {% endblock %}
+</header>
+
+<header>
+  {% block Signup %}
+  {% endblock %}
+</header>
+<header>
+  {% block test %}
+  {% endblock %}
+</header>
+<header>
+  {% block login %}
+  
+  {% endblock %}
+</header>
+
+
+<footer class="footer footer-center p-10 bg-base-200 text-base-content rounded mt-5">
+  <nav class="grid grid-flow-col gap-4">
+    <a class="link link-hover">About us</a>
+      <a class="link link-hover">Contact</a>
+        <a class="link link-hover">Jobs</a>
+          <a class="link link-hover">Press kit</a>
+  </nav> 
+  <nav>
+    <div class="grid grid-flow-col gap-4">
+      <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg></a>
+      <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg></a>
+      <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
+    </div>
+  </nav> 
+  <aside>
+    <p>Projet fin d'année 2024 realise par Mohamed Sabri</p>
+  </aside>
+</footer>
+<script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+</body>
+</html>

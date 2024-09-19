@@ -1,0 +1,21 @@
+<div class="card w-96 bg-base-100">
+  <figure class="px-10 pt-10">
+    <a href="{% url 'product' products.slug %}">
+      <img src="{{ products.get_thumbnails }}" alt="Shoes" class="rounded-xl" />
+    </a>
+  </figure>
+  <div class="card-body items-center text-center">
+    <h2 class="card-title">{{products.name}} <div class="badge badge-secondary">NEW</div></h2>
+    <p>{{products.description}}</p>
+  </div>
+  <div class="card-actions justify-end mb-2">
+    <div class="badge badge-outline ">{{products.category}}</div> 
+    <div class="badge badge-outline mr-2">product</div>
+  </div>
+    <div class="card-actions just mx-auto m-5">
+      <button class="btn btn-outline">{{products.price}} $</button>
+      <button class="btn btn-primary">Details</button>
+    </div>
+  </div>
+
+</div>
