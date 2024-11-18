@@ -65,4 +65,3 @@ MIT License
 
 ---
 
-Feel free to adjust the instructions or add additional details as needed!
