@@ -38,11 +38,11 @@ def signup(request):
     else:
         # If it's a GET request, create a new instance of the form
         form = SignUpForm()      
-<<<<<<< HEAD
+
     return render(request, 'core/singup.html',{'form':form})
-=======
+
     return render(request, 'Core/singup.html',{'form':form})
->>>>>>> origin/main
+
 
 def sinpage(request):
     return render(request,'core/singu.html')
