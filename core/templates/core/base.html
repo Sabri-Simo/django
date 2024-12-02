@@ -51,11 +51,11 @@
                       {% else %}
                           <form action="{% url 'loginPage' %}" method="post">
                               {% csrf_token %}
-                              <button class="btn btn-outline">Sign Up</button>
+                              <button class="btn btn-outline">Login</button>
                           </form>
                           <form action="{% url 'singupPgae' %}" method="post">
                               {% csrf_token %}
-                              <button class="btn btn-outline btn-primary">Login</button>
+                              <button class="btn btn-outline btn-primary">Sign Up</button>
                           </form>
                       {% endif %}
                   </div>
