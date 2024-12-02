@@ -39,8 +39,6 @@ def signup(request):
         # If it's a GET request, create a new instance of the form
         form = SignUpForm()      
 
-    return render(request, 'core/singup.html',{'form':form})
-
     return render(request, 'Core/singup.html',{'form':form})
 
 
